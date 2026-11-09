@@ -1,0 +1,19 @@
+{
+  "coleta_inicio_utc": "2026-11-09 11:38:54",
+  "coleta_fim_utc": "2026-11-09 12:26:30",
+  "recorte_publicacao": "2021-01-01 a 2025-12-31",
+  "n_janelas": 16,
+  "janela_dias": 120,
+  "resultados_por_pagina": 500,
+  "n_arquivos_nvd": 348,
+  "mb_nvd": 838.5,
+  "nvd_cves_baixadas": 170006,
+  "nvd_total_anunciado_api": 170006,
+  "janelas_faltando": [],
+  "janelas_incompletas": [],
+  "kev_linhas": 1769,
+  "kev_bytes": 1092976,
+  "formato_nvd": "JSON (API 2.0, janelas de 120 dias, 500 CVEs/página)",
+  "formato_kev": "CSV",
+  "chave_api_nvd": "não utilizada"
+}
