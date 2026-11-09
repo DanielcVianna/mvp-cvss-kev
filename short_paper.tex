@@ -16,7 +16,10 @@ Este trabalho avalia se priorizar a correção de vulnerabilidades apenas pela s
 \end{abstract}
 
 \section{Introdução}
-Equipes de TI recebem milhares de vulnerabilidades por ano e têm capacidade de correção limitada, um problema de alocação de recursos escassos sob risco. A prática usual é corrigir primeiro as vulnerabilidades críticas e altas segundo o CVSS \cite{cvss}. Este trabalho testa a hipótese de que priorizar apenas pelo CVSS gera um backlog grande e pouco eficiente, usando a exploração real registrada no catálogo KEV \cite{kev} como referência. Estudos anteriores já apontam diferenças entre severidade e exploração \cite{allodi,epss}.
+Equipes de TI recebem milhares de vulnerabilidades por ano e têm capacidade de correção limitada, um problema de alocação de recursos escassos sob risco. A prática usual é corrigir primeiro as vulnerabilidades críticas e altas segundo o CVSS \cite{cvss}. Este trabalho testa a hipótese de que priorizar apenas pelo CVSS gera um backlog grande e pouco eficiente, usando a exploração real registrada no catálogo KEV \cite{kev} como referência. Estudos anteriores já apontam diferenças entre severidade e exploração \cite{allodi,epss}, o que motiva a medição feita aqui com dados recentes.
+
+\section{Revisão da literatura}
+O CVSS \cite{cvss} descreve características técnicas de uma vulnerabilidade e produz uma nota de severidade de 0 a 10; a própria especificação ressalta que a nota base mede severidade, e não risco. Ainda assim, ela é amplamente usada como critério de priorização de correções. Allodi e Massacci \cite{allodi} compararam a severidade CVSS com a existência de \textit{exploits} e de ataques observados e indicam que a nota, isoladamente, é um indicador fraco de exploração efetiva. O EPSS \cite{epss} surge como alternativa orientada por dados, ao estimar a probabilidade de exploração de cada vulnerabilidade em um horizonte de 30 dias. Do lado das fontes de evidência, o catálogo KEV \cite{kev}, criado pela diretiva operacional BOD 22-01 \cite{bod} da CISA em novembro de 2021, lista vulnerabilidades com exploração confirmada e por isso serve de referência observável para avaliar o CVSS. Este trabalho não propõe um novo modelo: aplica essa comparação às CVEs publicadas entre 2021 e 2025, com dados coletados na data do estudo.
 
 \section{Método}
 \subsection{Dados e coleta}
@@ -33,7 +36,7 @@ Definiu-se, antes da execução, a precisão (percentual das CVEs críticas e al
 O volume anual de CVEs (excluídas as 7.865 rejeitadas) foi de 20.149 em 2021 e de 48.150 em 2025, uma alta de 139,0\%; o maior volume ocorreu em 2025 (48.150 CVEs). Entre as CVEs que possuem CVSS v3.x, as críticas e altas representaram 55,7\% em 2021 e 49,2\% em 2025, 52,1\% no conjunto do período — parcela expressiva (40\% ou mais). No total, a fila prioritária por CVSS (críticas + altas) soma 82.854 CVEs em 5 anos (média de 16.571 por ano, ou cerca de 45,4 por dia).
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\linewidth]{p1.png}
+\includegraphics[width=0.85\linewidth]{p1.png}
 \caption{Volume anual de CVEs e participação de críticas/altas.}
 \label{fig:p1}
 \end{figure}
@@ -41,7 +44,7 @@ O volume anual de CVEs (excluídas as 7.865 rejeitadas) foi de 20.149 em 2021 e 
 Há 22.566 CVEs críticas (CVSS $\geq$ 9) no período. As três CWEs específicas mais frequentes entre elas são: CWE-89 (Injeção de SQL) com 3.915 CVEs (17,3\%); CWE-74 (Injeção) com 1.883 CVEs (8,3\%); CWE-787 (Escrita fora dos limites) com 1.162 CVEs (5,1\%). As cinco principais CWEs específicas concentram 40,0\% das críticas. Outras 1.456 CVEs críticas (6,5\%) estão classificadas em categorias genéricas da NVD (NVD-CWE-Other/noinfo) ou sem CWE, o que limita a orientação de treinamento por tipo de falha.
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\linewidth]{p2.png}
+\includegraphics[width=0.85\linewidth]{p2.png}
 \caption{CWEs mais frequentes entre as CVEs críticas.}
 \label{fig:p2}
 \end{figure}
@@ -66,7 +69,7 @@ Sem CVSS v3.x & 3.102 & 0 & 0,00\% & 0,0\% \\
 \end{table}
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\linewidth]{p3.png}
+\includegraphics[width=0.85\linewidth]{p3.png}
 \caption{Taxa de exploração por faixa de severidade e composição do KEV.}
 \label{fig:p3}
 \end{figure}
@@ -90,7 +93,7 @@ Ano & n & Mediana (dias) & p90 (dias) & \% até 30 dias \\
 \end{table}
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\linewidth]{p4.png}
+\includegraphics[width=0.85\linewidth]{p4.png}
 \caption{Mediana e p90 da janela entre publicação e inclusão no KEV.}
 \label{fig:p4}
 \end{figure}
@@ -98,7 +101,7 @@ Ano & n & Mediana (dias) & p90 (dias) & \% até 30 dias \\
 Pelo vendor extraído do CPE (apenas configurações marcadas como vulneráveis), os fabricantes com mais CVEs no KEV são: microsoft (174); apple (79); debian (69); google (68); fedoraproject (66). Cobertura do mapeamento: 100,0\% das 870 CVEs do KEV possuem vendor. Uma CVE pode ter vários vendors (por exemplo, o fabricante do produto e as distribuições que o empacotam, como debian e fedoraproject), logo as contagens por vendor se sobrepõem e não devem ser somadas. Verificação cruzada com o campo vendorProject do próprio KEV: Microsoft (163); Apple (72); Google (53); Cisco (25); Ivanti (25).
 \begin{figure}[ht]
 \centering
-\includegraphics[width=\linewidth]{p5.png}
+\includegraphics[width=0.85\linewidth]{p5.png}
 \caption{Fabricantes com mais CVEs no KEV.}
 \label{fig:p5}
 \end{figure}
@@ -125,5 +128,6 @@ Nos dados de 2021–2025, a hipótese de que o CVSS isolado é pouco eficiente c
 \bibitem{cvss} FIRST. \textit{Common Vulnerability Scoring System v3.1: Specification Document}. \url{https://www.first.org/cvss/v3.1/specification-document}.
 \bibitem{epss} Jacobs, J.; Romanosky, S.; Edwards, B.; Adjerid, I.; Roytman, M. Exploit Prediction Scoring System (EPSS). \textit{Digital Threats: Research and Practice}, 2(3), 2021.
 \bibitem{allodi} Allodi, L.; Massacci, F. Comparing vulnerability severity and exploits using case-control studies. \textit{ACM Transactions on Information and System Security}, 17(1), 2014.
+\bibitem{bod} CISA. \textit{Binding Operational Directive 22-01: Reducing the Significant Risk of Known Exploited Vulnerabilities}, 2021. \url{https://www.cisa.gov/news-events/directives/bod-22-01-reducing-significant-risk-known-exploited-vulnerabilities}.
 \end{thebibliography}
 \end{document}
